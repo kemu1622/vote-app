@@ -1,12 +1,16 @@
 # 依赖
 node_modules/
-package-lock.json
 
-# 本地数据文件（Vercel上会用/serverless环境，这个文件会被重置）
+# 本地数据文件
 votes.json
 
 # 日志文件
 *.log
+*.txt
+
+# 压缩包和安装包
+*.zip
+cpolar-installer/
 
 # 系统文件
 .DS_Store
@@ -16,8 +20,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# 本地开发文件
-run-out.log
-run-err.log
-cpolar-*.log
-tunnel-url.txt
+# 本地运行脚本（Vercel不需要）
+run-cpolar.js
+start.js
+server.js

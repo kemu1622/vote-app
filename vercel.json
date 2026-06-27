@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/vote.html", "destination": "/public/vote.html" },
-    { "source": "/(.*)", "destination": "/public/$1" }
-  ]
+  "version": 2
 }
