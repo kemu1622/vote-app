@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "public/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/config", "dest": "/api/config.js" },
+    { "src": "/api/results", "dest": "/api/results.js" },
+    { "src": "/api/vote", "dest": "/api/vote.js" },
+    { "src": "/api/token", "dest": "/api/token.js" },
+    { "src": "/api/qrcode", "dest": "/api/qrcode.js" },
+    { "src": "/api/status", "dest": "/api/status.js" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
+}

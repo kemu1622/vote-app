@@ -1,0 +1,15 @@
+{
+  "name": "vote-app",
+  "version": "1.0.0",
+  "description": "现场活动投票大屏系统 - 微信扫码投票",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "localtunnel": "^2.0.2",
+    "qrcode": "^1.5.4"
+  }
+}

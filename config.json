@@ -1,0 +1,12 @@
+{
+  "title": "路遥歌手第三轮选拔赛",
+  "subtitle": "为你喜欢的歌手投上宝贵一票",
+  "maxVotes": 1,
+  "options": [
+    { "id": 1, "name": "选手1", "desc": "待定", "color": "#FF6B6B" },
+    { "id": 2, "name": "选手2", "desc": "待定", "color": "#4ECDC4" },
+    { "id": 3, "name": "选手3", "desc": "待定", "color": "#45B7D1" },
+    { "id": 4, "name": "选手4", "desc": "待定", "color": "#FFA07A" },
+    { "id": 5, "name": "选手5", "desc": "待定", "color": "#98D8C8" }
+  ]
+}

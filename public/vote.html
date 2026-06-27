@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>投票</title>
+  <link rel="stylesheet" href="/css/vote.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 加载中 -->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-spinner"></div>
+      <p>加载中...</p>
+    </div>
+
+    <!-- 投票页 -->
+    <div id="voteScreen" class="vote-screen" style="display:none;">
+      <header class="vote-header">
+        <h1 id="voteTitle"></h1>
+        <p id="voteSubtitle"></p>
+      </header>
+
+      <div class="options-list" id="optionsList">
+        <!-- 动态生成 -->
+      </div>
+
+      <div class="vote-footer">
+        <button id="submitBtn" class="submit-btn" disabled>请选择候选人</button>
+        <p class="vote-tip">每人限投一票，提交后不可更改</p>
+      </div>
+    </div>
+
+    <!-- 已投票页 -->
+    <div id="votedScreen" class="voted-screen" style="display:none;">
+      <div class="voted-icon">&#10003;</div>
+      <h2>投票成功！</h2>
+      <p>您已将票投给</p>
+      <div id="votedOption" class="voted-option"></div>
+      <p class="voted-thanks">感谢您的参与</p>
+      <div class="voted-divider"></div>
+      <p class="voted-redirect">查看大屏实时排名</p>
+    </div>
+
+    <!-- 重复投票提示 -->
+    <div id="alreadyVotedScreen" class="voted-screen" style="display:none;">
+      <div class="voted-icon" style="background:rgba(255,170,0,0.15);color:#FFAA00;">!</div>
+      <h2>您已投过票</h2>
+      <p>每人限投一票</p>
+      <div id="alreadyVotedOption" class="voted-option"></div>
+      <p class="voted-thanks">感谢您的参与</p>
+    </div>
+  </div>
+
+  <script src="/js/vote.js"></script>
+</body>
+</html>

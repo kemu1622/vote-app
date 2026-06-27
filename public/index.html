@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投票大屏</title>
+  <link rel="stylesheet" href="/css/display.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 背景动画粒子 -->
+    <canvas id="particles"></canvas>
+
+    <!-- 顶部标题栏 -->
+    <header class="top-bar">
+      <div class="title-area">
+        <h1 id="pageTitle" class="page-title">加载中...</h1>
+        <p id="pageSubtitle" class="page-subtitle"></p>
+      </div>
+      <div class="status-area">
+        <div class="status-item">
+          <span class="status-icon">👥</span>
+          <span class="status-label">参与人数</span>
+          <span id="participantCount" class="status-value">0</span>
+        </div>
+        <div class="status-item">
+          <span class="status-icon">🗳️</span>
+          <span class="status-label">总票数</span>
+          <span id="totalVotes" class="status-value">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 投票结果区 -->
+    <main class="vote-area">
+      <div id="voteList" class="vote-list">
+        <!-- 动态生成投票条 -->
+      </div>
+    </main>
+
+    <!-- 底部二维码区 -->
+    <footer class="bottom-bar">
+      <div class="qr-section">
+        <div class="qr-wrapper">
+          <img id="qrCode" src="" alt="扫码投票">
+        </div>
+        <div class="qr-text">
+          <p class="qr-tip">📱 微信扫一扫</p>
+          <p class="qr-tip-sub">参与投票</p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <span id="liveBadge" class="live-badge">● 实时更新中</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/display.js"></script>
+</body>
+</html>
