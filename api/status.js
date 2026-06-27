@@ -1,15 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const VOTES_FILE = path.join(process.cwd(), 'votes.json');
+const VOTES_FILE = path.join('/tmp', 'votes.json');
 
-// 读取投票数据
 function loadVotes() {
   if (!fs.existsSync(VOTES_FILE)) {
     return { voteData: {}, voters: {}, totalParticipants: 0 };
   }
-  const data = fs.readFileSync(VOTES_FILE, 'utf-8');
-  return JSON.parse(data);
+  return JSON.parse(fs.readFileSync(VOTES_FILE, 'utf-8'));
 }
 
 module.exports = (req, res) => {
@@ -22,17 +20,15 @@ module.exports = (req, res) => {
   }
   
   if (req.method === 'GET') {
-    const token = req.query.token;
-    
+    const { token } = req.query;
     if (!token) {
       return res.status(400).json({ error: '缺少token参数' });
     }
     
     const data = loadVotes();
-    const voted = data.voters[token] !== undefined;
-    const optionId = voted ? data.voters[token] : null;
+    const hasVoted = !!data.voters[token];
     
-    return res.status(200).json({ voted, optionId });
+    return res.status(200).json({ hasVoted });
   }
   
   return res.status(405).json({ error: 'Method not allowed' });

@@ -2,22 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const VOTES_FILE = path.join(process.cwd(), 'votes.json');
+const VOTES_FILE = path.join('/tmp', 'votes.json');
 const CONFIG_FILE = path.join(process.cwd(), 'config.json');
 
-// 读取投票数据
-function loadVotes() {
-  if (!fs.existsSync(VOTES_FILE)) {
-    const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
-    const voteData = {};
-    config.options.forEach(opt => { voteData[opt.id] = 0; });
-    return { voteData, voters: {}, totalParticipants: 0 };
-  }
-  const data = fs.readFileSync(VOTES_FILE, 'utf-8');
-  return JSON.parse(data);
+function loadConfig() {
+  return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
 }
 
-// 保存投票数据
+function loadVotes() {
+  if (!fs.existsSync(VOTES_FILE)) {
+    const config = loadConfig();
+    const initData = { voteData: {}, voters: {}, totalParticipants: 0 };
+    config.options.forEach(opt => {
+      initData.voteData[opt.id] = 0;
+    });
+    fs.writeFileSync(VOTES_FILE, JSON.stringify(initData, null, 2));
+    return initData;
+  }
+  return JSON.parse(fs.readFileSync(VOTES_FILE, 'utf-8'));
+}
+
 function saveVotes(data) {
   fs.writeFileSync(VOTES_FILE, JSON.stringify(data, null, 2));
 }
@@ -32,7 +36,7 @@ module.exports = (req, res) => {
   }
   
   if (req.method === 'POST') {
-    const { token, optionId } = req.body;
+    const { token, optionId } = req.body || {};
     
     if (!token || !optionId) {
       return res.status(400).json({ error: '缺少参数' });
@@ -46,13 +50,20 @@ module.exports = (req, res) => {
     }
     
     // 记录投票
-    data.voteData[optionId] = (data.voteData[optionId] || 0) + 1;
     data.voters[token] = optionId;
-    data.totalParticipants += 1;
+    if (!data.voteData[optionId]) {
+      data.voteData[optionId] = 0;
+    }
+    data.voteData[optionId]++;
+    data.totalParticipants++;
     
     saveVotes(data);
     
-    return res.status(200).json({ success: true, message: '投票成功' });
+    return res.status(200).json({ 
+      success: true, 
+      message: '投票成功',
+      totalParticipants: data.totalParticipants
+    });
   }
   
   return res.status(405).json({ error: 'Method not allowed' });

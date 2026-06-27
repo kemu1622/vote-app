@@ -1,13 +1,27 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 
-const VOTES_FILE = path.join(process.cwd(), 'votes.json');
+// Vercel 文件系统只读，投票数据存到 /tmp
+const VOTES_FILE = path.join('/tmp', 'votes.json');
+const CONFIG_FILE = path.join(process.cwd(), 'config.json');
+
+// 读取配置
+function loadConfig() {
+  const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
+  return config;
+}
 
 // 读取投票数据
 function loadVotes() {
   if (!fs.existsSync(VOTES_FILE)) {
-    return { voteData: {}, voters: {}, totalParticipants: 0 };
+    const config = loadConfig();
+    const initData = { voteData: {}, voters: {}, totalParticipants: 0 };
+    // 初始化每个选项的票数为0
+    config.options.forEach(opt => {
+      initData.voteData[opt.id] = 0;
+    });
+    fs.writeFileSync(VOTES_FILE, JSON.stringify(initData, null, 2));
+    return initData;
   }
   const data = fs.readFileSync(VOTES_FILE, 'utf-8');
   return JSON.parse(data);
