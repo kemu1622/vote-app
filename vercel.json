@@ -7,7 +7,7 @@
     { "src": "api/token.js", "use": "@vercel/node" },
     { "src": "api/qrcode.js", "use": "@vercel/node" },
     { "src": "api/status.js", "use": "@vercel/node" },
-    { "src": "api/test.js", "use": "@vercel/node" }
+    { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/config", "dest": "/api/config.js" },
@@ -16,7 +16,9 @@
     { "src": "/api/token", "dest": "/api/token.js" },
     { "src": "/api/qrcode", "dest": "/api/qrcode.js" },
     { "src": "/api/status", "dest": "/api/status.js" },
-    { "src": "/api/test", "dest": "/api/test.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/vote\\.html", "dest": "/public/vote.html" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" }
   ]
 }
